@@ -1,0 +1,22 @@
+{
+  "book": "Dioniso",
+  "author": "Walter F. Otto",
+  "nodes": [
+    {
+      "id": "Ulrich von Wilamowitz-Moellendorff",
+      "group": 2,
+      "page": 16,
+      "quote": "Così l’ha formulata recentemente Wi- lamowitz, che con la sua notevolissima ultima opera Der Glaube der Hellenen è divenuto il mag-giore rappresentante di questa scuola."
+    },
+    {
+      "id": "Ulrich von Wilamowitz-Moellendorff",
+      "group": 2,
+      "page": 17,
+      "quote": "Ecco un esempio per chiarire. Il dio Ermes (cfr. U. von Wilamowitz-Moellendorff, Der Glaube der Hellenen, Berlin, vol. I, 1931, pp. 159 sgg.) origi-nariamente non sarebbe stato che una divinità protettrice, la cui presenza veniva indicata dalle colonne e dai mucchietti di pietre davanti agli appezzamenti e lungo le strade."
+    }
+  ],
+  "links": [
+    {"source": "Walter F. Otto", "target": "Ulrich von Wilamowitz-Moellendorff"}
+  ]
+}
+
