@@ -9,8 +9,9 @@
         #graph { flex: 3; height: 100vh; }
         #sidebar { flex: 1; padding: 20px; background: #f0f0f0; overflow-y: auto; height: 100vh; }
         #sidebar h2 { margin-top: 0; }
-        .node { stroke: #fff; stroke-width: 1.5px; }
+        .node circle { stroke: #fff; stroke-width: 1.5px; }
         .link { stroke: #999; stroke-opacity: 0.6; }
+        .node text { pointer-events: none; font: 10px sans-serif; }
     </style>
 </head>
 <body>
@@ -83,12 +84,10 @@
                 .attr("class", "link");
 
             const node = svg.append("g")
-                .selectAll("circle")
+                .selectAll("g")
                 .data(data.nodes)
-                .join("circle")
+                .join("g")
                 .attr("class", "node")
-                .attr("r", d => d.group === 1 ? 15 : 8)
-                .attr("fill", d => color(d.group))
                 .call(drag(simulation))
                 .on("click", (event, d) => {
                     if (d.group === 2 && d.quotes) {
@@ -102,6 +101,15 @@
                     }
                 });
 
+            node.append("circle")
+                .attr("r", d => d.group === 1 ? 15 : 8)
+                .attr("fill", d => color(d.group));
+
+            node.append("text")
+                .attr("dx", 12)
+                .attr("dy", ".35em")
+                .text(d => d.id);
+
             node.append("title")
                 .text(d => d.id);
 
@@ -113,8 +121,7 @@
                     .attr("y2", d => d.target.y);
 
                 node
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y);
+                    .attr("transform", d => `translate(${d.x},${d.y})`);
             });
 
             function drag(simulation) {
