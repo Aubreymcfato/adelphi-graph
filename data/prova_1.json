@@ -1,0 +1,51 @@
+{
+  "book": "Prova 1",
+  "author": "Andrea Zanni",
+  "nodes": [
+    {
+      "id": "Franz Kafka",
+      "group": 2,
+      "page": 61,
+      "quote": "Il 19 ottobre 1921 Kafka scrive sul Diario: « Das We-sen des Wüstenwegs »1 – qual è l’essenza della via che percorre il deserto? Come si manifesta in Kafka quella via che dovrebbe costituire la radice stessa della vi­ta eterna?"
+    },
+    {
+      "id": "Pavel Florenskij",
+      "group": 2,
+      "page": 192,
+      "quote": "Carattere che Florenskij rivendica, sul piano teore-tico generale nella Colonna e il fondamento della verità, e in un’appa"
+    },
+    {
+      "id": "Paul Klee",
+      "group": 2,
+      "page": 277,
+      "quote": "Vi è un acquerello di Klee del 1918: un grande albero (che potrebbe anche inten-dersi come un albero rovesciato, arbor inver"
+    },
+    {
+      "id": "Gottfried Wilhelm Leibniz",
+      "group": 2,
+      "page": 275,
+      "quote": "L’ordito mondrianiano non permette una lettura ‘ierogamica’ dell’Albero. Il suo ‘punto’ archetipico"
+    },
+    {
+      "id": "Sigmund Freud",
+      "group": 2,
+      "page": 147,
+      "quote": "nell’inesplicabile deve fare ritorno proprio perché proviene da un fondo di verità, è anche il Mosè di Freud.1 Egli non si limita affatto ad aggiungere un nuovo testo alla tradizione della letterat"
+    },
+    {
+      "id": "Walter Benjamin",
+      "group": 2,
+      "page": 63,
+      "quote": "Di quest’aporia – come Benjamin si avvide7 – è intessuta l’intera opera di Kafka, essa è il ‘lasciate ogni speranza’ scritto sulla sua porta."
+    },
+   
+  ],
+  "links": [
+    {"source": "Andrea Zanni", "target": "Franz Kafka"},
+    {"source": "Andrea Zanni", "target": "Pavel Florenskij"},
+    {"source": "Andrea Zanni", "target": "Paul Klee"},
+    {"source": "Andrea Zanni", "target": "Gottfried Wilhelm Leibniz"},
+    {"source": "Andrea Zanni", "target": "Sigmund Freud"},
+    {"source": "Andrea Zanni", "target": "Walter Benjamin"},
+  ]
+}
