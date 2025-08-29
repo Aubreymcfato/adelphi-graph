@@ -1,0 +1,72 @@
+{
+  "book": "A che cosa serve la letteratura",
+  "author": "Isaac Bashevis Singer",
+  "nodes": [
+    {
+      "id": "Fyodor Dostoevskij",
+      "group": 2,
+      "page": 14,
+      "quote": "Le mie opere migliori le ho scritte in mezzo al caos del giornale, spesso direttamente negli uf$ci della reda-zione, tra un articolo e l’altro. I miei romanzi La famiglia Moskat e La fortezza sono usciti a puntate sul « Forverts », e ogni settimana preparavo un nuovo capitolo per il saba-to successivo. È vero che poi li ho rielaborati, miglioran-do la lingua e facendo dei tagli, ma il grosso del lavoro fu eseguito di fretta mentre il redattore e il tipografo mi incalzavano per andare in stampa. Quasi tutti i grandi scrittori russi hanno pubblicato le proprie opere su giornali e riviste. Dostoevskij era un giornalista eccezionale e, se è vero che i suoi scritti lette-rari contengono elementi giornalistici, a quanto pare non ne hanno patito alcun danno."
+    },
+    {
+      "id": "Leo Tolstoy",
+      "group": 2,
+      "page": 14,
+      "quote": "Tolstoj sarebbe sicu-ramente stato un maestro di giornalismo se solo ci si fosse applicato. I racconti di Ñechov furono scritti quasi tutti per i giornali."
+    },
+    {
+      "id": "Anton Chekhov",
+      "group": 2,
+      "page": 14,
+      "quote": "I racconti di Ñechov furono scritti quasi tutti per i giornali."
+    },
+    {
+      "id": "Leonid Andreev",
+      "group": 2,
+      "page": 14,
+      "quote": "L’unico scrittore russo famoso che evitò la stampa periodica e decise di rifugiarsi su isole e in palazzi gelidi fu Andreev, il meno importante dei ma-estri russi."
+    },
+    {
+      "id": "Guy de Maupassant",
+      "group": 2,
+      "page": 14,
+      "quote": "Nella letteratura francese, Maupassant e Zola mantennero legami stretti con la stampa, e in quella a-mericana erano giornalisti sia Edgar Allan Poe sia Walt Whitman."
+    },
+    {
+      "id": "Émile Zola",
+      "group": 2,
+      "page": 14,
+      "quote": "Nella letteratura francese, Maupassant e Zola mantennero legami stretti con la stampa, e in quella a-mericana erano giornalisti sia Edgar Allan Poe sia Walt Whitman."
+    },
+    {
+      "id": "Edgar Allan Poe",
+      "group": 2,
+      "page": 14,
+      "quote": "Nella letteratura francese, Maupassant e Zola mantennero legami stretti con la stampa, e in quella a-mericana erano giornalisti sia Edgar Allan Poe sia Walt Whitman."
+    },
+    {
+      "id": "Walt Whitman",
+      "group": 2,
+      "page": 14,
+      "quote": "Nella letteratura francese, Maupassant e Zola mantennero legami stretti con la stampa, e in quella a-mericana erano giornalisti sia Edgar Allan Poe sia Walt Whitman."
+    },
+    {
+      "id": "Gustave Flaubert",
+      "group": 2,
+      "page": 15,
+      "quote": "Salambò di Flaubert contiene un bel po’ di informa-zioni. Guerra e pace di Tolstoj non rivela forse nulla di nuovo su Napoleone, ma propone un punto di vista ori-ginale sull’aristocrazia e il militarismo russi."
+    }
+  ],
+  "links": [
+    {"source": "Isaac Bashevis Singer", "target": "Fyodor Dostoevskij"},
+    {"source": "Isaac Bashevis Singer", "target": "Leo Tolstoy"},
+    {"source": "Isaac Bashevis Singer", "target": "Anton Chekhov"},
+    {"source": "Isaac Bashevis Singer", "target": "Leonid Andreev"},
+    {"source": "Isaac Bashevis Singer", "target": "Guy de Maupassant"},
+    {"source": "Isaac Bashevis Singer", "target": "Émile Zola"},
+    {"source": "Isaac Bashevis Singer", "target": "Edgar Allan Poe"},
+    {"source": "Isaac Bashevis Singer", "target": "Walt Whitman"},
+    {"source": "Isaac Bashevis Singer", "target": "Gustave Flaubert"}
+  ]
+}
+
