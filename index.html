@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Literary Citation Graph</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="loader.js"></script>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; display: flex; }
         #graph { flex: 3; height: 100vh; background: #fff; }
@@ -41,137 +42,116 @@
                 })
         );
 
-        // Lista dei JSON da caricare
-        const jsonFiles = [
-            'data/a_occhi_aperti.json',
-            'data/lezioni_sul_Don_Chisciotte.json',
-            'data/icone_della_legge.json', 
-            'data/pensare_senza_parole.json',
-            'data/dioniso.json',
-            'data/a_cosa_serve_la_letteratura.json',
-        ];
+        // Carica la lista dei file JSON automaticamente
+        getJsonFiles().then(jsonFiles => {
+            // Carica e mergia i dati come prima
+            Promise.all(jsonFiles.map(file => fetch(file).then(res => res.json()))).then(allData => {
+                const mergedNodes = new Map();
+                const mergedLinks = [];
 
-        async function loadAndMergeData(files) {
-            const dataPromises = files.map(file => fetch(file).then(res => res.json()));
-            const allData = await Promise.all(dataPromises);
-
-            const mergedNodes = new Map();
-            const mergedLinks = [];
-
-            allData.forEach(bookData => {
-                // Nodo autore centrale
-                if (!mergedNodes.has(bookData.author)) {
-                    mergedNodes.set(bookData.author, { id: bookData.author, group: 1 });
-                }
-                // Nodi citati
-                bookData.nodes.forEach(node => {
-                    if (mergedNodes.has(node.id)) {
-                        const existing = mergedNodes.get(node.id);
-                        if (!existing.quotes) existing.quotes = [];
-                        existing.quotes.push({ book: bookData.book, page: node.page, quote: node.quote });
-                    } else {
-                        mergedNodes.set(node.id, {
-                            id: node.id,
-                            group: 2,
-                            quotes: [{ book: bookData.book, page: node.page, quote: node.quote }]
-                        });
+                allData.forEach(bookData => {
+                    if (!mergedNodes.has(bookData.author)) {
+                        mergedNodes.set(bookData.author, { id: bookData.author, group: 1 });
                     }
-                });
-                // Link
-                mergedLinks.push(...bookData.links);
-            });
-
-            return { nodes: Array.from(mergedNodes.values()), links: mergedLinks };
-        }
-
-        loadAndMergeData(jsonFiles).then(data => {
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-            // Forze per tenere i nodi vicini
-            const simulation = d3.forceSimulation(data.nodes)
-                .force("link", d3.forceLink(data.links).id(d => d.id).distance(90).strength(1))
-                .force("charge", d3.forceManyBody().strength(-180)) // meno repulsione
-                .force("center", d3.forceCenter(0, 0))
-                .force("x", d3.forceX(0).strength(0.15))
-                .force("y", d3.forceY(0).strength(0.15));
-
-            // Draw links
-            const link = container.append("g")
-                .attr("stroke", "#999")
-                .attr("stroke-opacity", 0.6)
-                .selectAll("line")
-                .data(data.links)
-                .join("line")
-                .attr("stroke-width", 2);
-
-            // Draw nodes
-            const node = container.append("g")
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1.5)
-                .selectAll("g")
-                .data(data.nodes)
-                .join("g")
-                .attr("class", "node")
-                .call(drag(simulation));
-
-            node.append("circle")
-                .attr("r", 20)
-                .attr("fill", d => color(d.group))
-                .on("click", (event, d) => showNodeDetails(d));
-
-            node.append("text")
-                .attr("dy", 4)
-                .attr("text-anchor", "middle")
-                .text(d => d.id.length > 20 ? d.id.slice(0, 17) + "…" : d.id);
-
-            simulation.on("tick", () => {
-                link
-                    .attr("x1", d => d.source.x)
-                    .attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y);
-
-                node
-                    .attr("transform", d => `translate(${d.x},${d.y})`);
-            });
-
-            // Pan/Zoom: centra inizialmente
-            svg.call(d3.zoom().transform, d3.zoomIdentity.translate(width/2, height/2));
-
-            function showNodeDetails(d) {
-                const detailsDiv = document.getElementById("nodeDetails");
-                if (d.quotes && d.quotes.length) {
-                    let html = `<strong>${d.id}</strong><ul>`;
-                    d.quotes.forEach(q => {
-                        html += `<li><em>${q.book}</em> (pag. ${q.page}): ${q.quote}</li>`;
+                    bookData.nodes.forEach(node => {
+                        if (mergedNodes.has(node.id)) {
+                            const existing = mergedNodes.get(node.id);
+                            if (!existing.quotes) existing.quotes = [];
+                            existing.quotes.push({ book: bookData.book, page: node.page, quote: node.quote });
+                        } else {
+                            mergedNodes.set(node.id, {
+                                id: node.id,
+                                group: 2,
+                                quotes: [{ book: bookData.book, page: node.page, quote: node.quote }]
+                            });
+                        }
                     });
-                    html += "</ul>";
-                    detailsDiv.innerHTML = html;
-                } else {
-                    detailsDiv.innerHTML = `<strong>${d.id}</strong><br>Nessuna citazione disponibile.`;
-                }
-            }
+                    mergedLinks.push(...bookData.links);
+                });
 
-            function drag(simulation) {
-                function dragstarted(event, d) {
-                    if (!event.active) simulation.alphaTarget(0.3).restart();
-                    d.fx = d.x;
-                    d.fy = d.y;
+                const nodes = Array.from(mergedNodes.values());
+                const links = mergedLinks;
+
+                const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+                const simulation = d3.forceSimulation(nodes)
+                    .force("link", d3.forceLink(links).id(d => d.id).distance(120).strength(0.9))
+                    .force("charge", d3.forceManyBody().strength(-220))
+                    .force("center", d3.forceCenter(0, 0));
+                // Nodi e link come prima
+                const link = container.append("g")
+                    .attr("stroke", "#999")
+                    .attr("stroke-opacity", 0.6)
+                    .selectAll("line")
+                    .data(links)
+                    .join("line")
+                    .attr("stroke-width", 2);
+
+                const node = container.append("g")
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1.5)
+                    .selectAll("g")
+                    .data(nodes)
+                    .join("g")
+                    .attr("class", "node")
+                    .call(drag(simulation));
+
+                node.append("circle")
+                    .attr("r", 20)
+                    .attr("fill", d => color(d.group))
+                    .on("click", (event, d) => showNodeDetails(d));
+
+                node.append("text")
+                    .attr("dy", 4)
+                    .attr("text-anchor", "middle")
+                    .text(d => d.id.length > 20 ? d.id.slice(0, 17) + "…" : d.id);
+
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("transform", d => `translate(${d.x},${d.y})`);
+                });
+
+                function showNodeDetails(d) {
+                    const detailsDiv = document.getElementById("nodeDetails");
+                    if (d.quotes && d.quotes.length) {
+                        let html = `<strong>${d.id}</strong><ul>`;
+                        d.quotes.forEach(q => {
+                            html += `<li><em>${q.book}</em> (pag. ${q.page}): ${q.quote}</li>`;
+                        });
+                        html += "</ul>";
+                        detailsDiv.innerHTML = html;
+                    } else {
+                        detailsDiv.innerHTML = `<strong>${d.id}</strong><br>Nessuna citazione disponibile.`;
+                    }
                 }
-                function dragged(event, d) {
-                    d.fx = event.x;
-                    d.fy = event.y;
+
+                function drag(simulation) {
+                    function dragstarted(event, d) {
+                        if (!event.active) simulation.alphaTarget(0.3).restart();
+                        d.fx = d.x;
+                        d.fy = d.y;
+                    }
+                    function dragged(event, d) {
+                        d.fx = event.x;
+                        d.fy = event.y;
+                    }
+                    function dragended(event, d) {
+                        if (!event.active) simulation.alphaTarget(0);
+                        d.fx = null;
+                        d.fy = null;
+                    }
+                    return d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended);
                 }
-                function dragended(event, d) {
-                    if (!event.active) simulation.alphaTarget(0);
-                    d.fx = null;
-                    d.fy = null;
-                }
-                return d3.drag()
-                    .on("start", dragstarted)
-                    .on("drag", dragged)
-                    .on("end", dragended);
-            }
+            });
         });
     </script>
 </body>
