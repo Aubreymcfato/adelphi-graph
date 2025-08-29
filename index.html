@@ -12,7 +12,7 @@
         #sidebar h2 { margin-top: 0; }
         .node circle { stroke: #fff; stroke-width: 1.5px; }
         .link { stroke: #999; stroke-opacity: 0.6; }
-        .node text { pointer-events: none; font: 10px sans-serif; }
+        .node text { pointer-events: none; font: 12px Arial; fill: #111; font-weight: 300; }
     </style>
 </head>
 <body>
@@ -72,13 +72,17 @@
                 const nodes = Array.from(mergedNodes.values());
                 const links = mergedLinks;
 
-                const color = d3.scaleOrdinal(d3.schemeCategory10);
+                // Colori personalizzati
+                function nodeColor(group) {
+                    return group === 1 ? "#8B0000" : "#002366"; // rosso scuro, blu scuro
+                }
 
                 const simulation = d3.forceSimulation(nodes)
                     .force("link", d3.forceLink(links).id(d => d.id).distance(120).strength(0.9))
                     .force("charge", d3.forceManyBody().strength(-220))
                     .force("center", d3.forceCenter(0, 0));
-                // Nodi e link come prima
+
+                // Draw links
                 const link = container.append("g")
                     .attr("stroke", "#999")
                     .attr("stroke-opacity", 0.6)
@@ -87,6 +91,7 @@
                     .join("line")
                     .attr("stroke-width", 2);
 
+                // Draw nodes
                 const node = container.append("g")
                     .attr("stroke", "#fff")
                     .attr("stroke-width", 1.5)
@@ -98,7 +103,7 @@
 
                 node.append("circle")
                     .attr("r", 20)
-                    .attr("fill", d => color(d.group))
+                    .attr("fill", d => nodeColor(d.group))
                     .on("click", (event, d) => showNodeDetails(d));
 
                 node.append("text")
