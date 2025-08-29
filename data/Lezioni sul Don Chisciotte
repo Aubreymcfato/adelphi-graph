@@ -1,0 +1,44 @@
+{
+  "book": "Lezioni sul Don Chisciotte",
+  "author": "Vladimir Nabokov",
+  "nodes": [
+    {
+      "id": "Luigi Giuliani",
+      "group": 2,
+      "page": 5,
+      "quote": "A cura di Luigi Giuliani"
+    },
+    {
+      "id": "Enrico Terrinoni",
+      "group": 2,
+      "page": 5,
+      "quote": "Traduzione di Enrico Terrinoni"
+    },
+    {
+      "id": "Piero Parri",
+      "group": 2,
+      "page": 6,
+      "quote": "Traduzione di Piero Parri"
+    },
+    {
+      "id": "Fredson Bowers",
+      "group": 2,
+      "page": 6,
+      "quote": "© 1983 fredson bowers per le Note"
+    },
+    {
+      "id": "Miguel de Cervantes",
+      "group": 2,
+      "page": 11,
+      "quote": "Il Don Chisciotte di Cervantes è uno dei libri più amari e barbari che siano mai stati scritti. E la sua tragedia è ancor più grande perché la sua tinta è quella del grigio."
+    }
+  ],
+  "links": [
+    {"source": "Vladimir Nabokov", "target": "Luigi Giuliani"},
+    {"source": "Vladimir Nabokov", "target": "Enrico Terrinoni"},
+    {"source": "Vladimir Nabokov", "target": "Piero Parri"},
+    {"source": "Vladimir Nabokov", "target": "Fredson Bowers"},
+    {"source": "Vladimir Nabokov", "target": "Miguel de Cervantes"}
+  ]
+}
+
