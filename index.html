@@ -10,15 +10,18 @@
         #graph { flex: 3; height: 100vh; background: #fff; }
         #sidebar { flex: 1; padding: 20px; background: #f0f0f0; overflow-y: auto; height: 100vh; }
         #sidebar h2 { margin-top: 0; }
+        /* Node circle style: border */
         .node circle { stroke: #fff; stroke-width: 1.5px; }
+        /* Link style */
         .link { stroke: #999; stroke-opacity: 0.6; }
-        .node text { pointer-events: none; font: 12px Arial; fill: #111; font-weight: 300; }
+        /* Node label style - change font and color here */
+        .node text { pointer-events: none; font: 11px Baskerville; fill: #000; font-weight: 200; }
     </style>
 </head>
 <body>
     <svg id="graph"></svg>
     <div id="sidebar">
-        <h2>Dettagli Citazione</h2>
+        <h2>Dettagli citazione</h2>
         <p>Clicca su un nodo per vedere le citazioni (da più libri se presenti).</p>
         <div id="nodeDetails"></div>
     </div>
@@ -26,33 +29,37 @@
         const width = window.innerWidth * 0.75;
         const height = window.innerHeight;
 
+        // Select the SVG element and set its size
         const svg = d3.select("#graph")
             .attr("width", width)
             .attr("height", height);
 
-        // Container per pan & zoom
+        // Container group for all graph elements, used for pan & zoom
         const container = svg.append("g");
 
-        // Attiva pan & zoom
+        // Enable pan & zoom on the SVG
         svg.call(
             d3.zoom()
-                .scaleExtent([0.2, 5])
+                .scaleExtent([0.2, 5]) // min/max zoom
                 .on("zoom", (event) => {
-                    container.attr("transform", event.transform);
+                    container.attr("transform", event.transform); // transforms the group
                 })
         );
 
-        // Carica la lista dei file JSON automaticamente
+        // Load the list of JSON files automatically using loader.js
         getJsonFiles().then(jsonFiles => {
-            // Carica e mergia i dati come prima
+            // Fetch and merge data from all JSON files
             Promise.all(jsonFiles.map(file => fetch(file).then(res => res.json()))).then(allData => {
                 const mergedNodes = new Map();
                 const mergedLinks = [];
 
+                // Merge nodes and links from each book
                 allData.forEach(bookData => {
+                    // Add central author node
                     if (!mergedNodes.has(bookData.author)) {
                         mergedNodes.set(bookData.author, { id: bookData.author, group: 1 });
                     }
+                    // Add cited nodes
                     bookData.nodes.forEach(node => {
                         if (mergedNodes.has(node.id)) {
                             const existing = mergedNodes.get(node.id);
@@ -66,51 +73,63 @@
                             });
                         }
                     });
+                    // Add links
                     mergedLinks.push(...bookData.links);
                 });
 
                 const nodes = Array.from(mergedNodes.values());
                 const links = mergedLinks;
 
-                // Colori personalizzati
+                // ----------- GRAPHICS: node color function --------------------
+                // You can edit these colors below to customize
                 function nodeColor(group) {
-                    return group === 1 ? "#8B0000" : "#002366"; // rosso scuro, blu scuro
+                    return group === 1 ? "#8B0000" : "#002366"; // central node: dark red, others: dark blue
                 }
+                // --------------------------------------------------------------
 
+                // Create the force simulation (D3's default layout)
                 const simulation = d3.forceSimulation(nodes)
+                    // Link force: controls distance between connected nodes
                     .force("link", d3.forceLink(links).id(d => d.id).distance(120).strength(0.9))
+                    // Charge force: controls node repulsion
                     .force("charge", d3.forceManyBody().strength(-220))
+                    // Center force: keeps graph centered
                     .force("center", d3.forceCenter(0, 0));
 
-                // Draw links
+                // ----------- GRAPHICS: draw links (edges) ---------------------
                 const link = container.append("g")
-                    .attr("stroke", "#999")
+                    .attr("stroke", "#999") // link color
                     .attr("stroke-opacity", 0.6)
                     .selectAll("line")
                     .data(links)
                     .join("line")
                     .attr("stroke-width", 2);
+                // --------------------------------------------------------------
 
-                // Draw nodes
+                // ----------- GRAPHICS: draw nodes -----------------------------
                 const node = container.append("g")
-                    .attr("stroke", "#fff")
-                    .attr("stroke-width", 1.5)
+                    .attr("stroke", "#000") // node border color
+                    .attr("stroke-width", 1)
                     .selectAll("g")
                     .data(nodes)
                     .join("g")
                     .attr("class", "node")
-                    .call(drag(simulation));
+                    .call(drag(simulation)); // enable drag for nodes
 
+                // Node circles (edit colors & radius here)
                 node.append("circle")
-                    .attr("r", 20)
-                    .attr("fill", d => nodeColor(d.group))
+                    .attr("r", 15) // node radius
+                    .attr("fill", d => nodeColor(d.group)) // color by group
                     .on("click", (event, d) => showNodeDetails(d));
 
+                // Node labels (edit font, color in CSS above)
                 node.append("text")
                     .attr("dy", 4)
                     .attr("text-anchor", "middle")
                     .text(d => d.id.length > 20 ? d.id.slice(0, 17) + "…" : d.id);
+                // --------------------------------------------------------------
 
+                // Update node and link positions on each simulation tick
                 simulation.on("tick", () => {
                     link
                         .attr("x1", d => d.source.x)
@@ -122,6 +141,7 @@
                         .attr("transform", d => `translate(${d.x},${d.y})`);
                 });
 
+                // Shows node details in the sidebar
                 function showNodeDetails(d) {
                     const detailsDiv = document.getElementById("nodeDetails");
                     if (d.quotes && d.quotes.length) {
@@ -136,6 +156,7 @@
                     }
                 }
 
+                // ----------- GRAPHICS: drag behavior for nodes ----------------
                 function drag(simulation) {
                     function dragstarted(event, d) {
                         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -156,6 +177,7 @@
                         .on("drag", dragged)
                         .on("end", dragended);
                 }
+                // --------------------------------------------------------------
             });
         });
     </script>
