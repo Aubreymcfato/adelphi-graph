@@ -31,7 +31,8 @@
 
         // Lista dei JSON da caricare (aggiungi qui nuovi file per nuovi libri)
         const jsonFiles = ['data/a_occhi_aperti.json']; // Es: aggiungi 'data/altro_libro.json'
-
+        const jsonFiles = ['data/lezioni_sul_Don_Chisciotte.json'];
+        
         // Funzione per mergiare dati da più JSON
         async function loadAndMergeData(files) {
             const dataPromises = files.map(file => fetch(file).then(res => res.json()));
