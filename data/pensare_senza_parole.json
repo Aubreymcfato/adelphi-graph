@@ -1,0 +1,71 @@
+{
+  "book": "Pensare senza parole",
+  "author": "Temple Grandin",
+  "nodes": [
+    {
+      "id": "René Descartes",
+      "group": 2,
+      "page": 11,
+      "quote": "Il filosofo del Seicento René Descartes ha creato un forte precedente quando scrisse: « Penso dunque sono ». Sosteneva, in particolare, che è il linguaggio a separarci dalle « bestie »; che su di esso poggia la natura umana."
+    },
+    {
+      "id": "Noam Chomsky",
+      "group": 2,
+      "page": 12,
+      "quote": "Nel 1957 il linguista Noam Chomsky pubblicò l’innovativo Le strutture della sintassi, in cui sostiene che il linguaggio, e in particolare la grammatica, sono innati. Le sue idee avrebbero influenzato gli studiosi per più di mezzo secolo."
+    },
+    {
+      "id": "Maria Kozhevnikov",
+      "group": 2,
+      "page": 13,
+      "quote": "Il lavoro della ricercatrice Maria Kozhevnikov mi rivelò che esistono visualizzatori di oggetti (object visualizers) come me, che pensano per immagini e, come sospettavo, che esiste un secondo gruppo di pensatori visuo-spaziali inclini alla matematica, un gruppo trascurato ma essenziale di pensatori visivi, i quali pensano per pattern."
+    },
+    {
+      "id": "Richard Rodgers",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    },
+    {
+      "id": "Oscar Hammerstein",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    },
+    {
+      "id": "Steve Jobs",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    },
+    {
+      "id": "Steve Wozniak",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    },
+    {
+      "id": "Rem Koolhaas",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    },
+    {
+      "id": "Cecil Balmond",
+      "group": 2,
+      "page": 17,
+      "quote": "Parlerò del lavoro di Richard Rodgers e Oscar Hammerstein, di Steve Jobs e Steve Wozniak, dell’architetto Rem Koolhaas e dell’ingegnere Cecil Balmond."
+    }
+  ],
+  "links": [
+    {"source": "Temple Grandin", "target": "René Descartes"},
+    {"source": "Temple Grandin", "target": "Noam Chomsky"},
+    {"source": "Temple Grandin", "target": "Maria Kozhevnikov"},
+    {"source": "Temple Grandin", "target": "Richard Rodgers"},
+    {"source": "Temple Grandin", "target": "Oscar Hammerstein"},
+    {"source": "Temple Grandin", "target": "Steve Jobs"},
+    {"source": "Temple Grandin", "target": "Steve Wozniak"},
+    {"source": "Temple Grandin", "target": "Rem Koolhaas"},
+    {"source": "Temple Grandin", "target": "Cecil Balmond"}
+  ]
+}
