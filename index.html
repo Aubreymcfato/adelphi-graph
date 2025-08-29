@@ -15,7 +15,7 @@
         /* Link style */
         .link { stroke: #999; stroke-opacity: 0.6; }
         /* Node label style - change font and color here */
-        .node text { pointer-events: none; font: 11px Baskerville; fill: #000; font-weight: 200; }
+        .node text { pointer-events: none; font: 10px Baskerville; fill: #111; font-weight: 100; }
     </style>
 </head>
 <body>
@@ -126,7 +126,7 @@
                 node.append("text")
                     .attr("dy", 4)
                     .attr("text-anchor", "middle")
-                    .text(d => d.id.length > 20 ? d.id.slice(0, 17) + "…" : d.id);
+                    .text(d => d.id.length > 30 ? d.id.slice(0, 27) + "…" : d.id);
                 // --------------------------------------------------------------
 
                 // Update node and link positions on each simulation tick
