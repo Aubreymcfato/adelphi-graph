@@ -30,7 +30,13 @@
             .attr("viewBox", [-width / 2, -height / 2, width, height]);
 
         // Lista dei JSON da caricare (aggiungi qui nuovi file per nuovi libri)
-        const jsonFiles = ['data/a_occhi_aperti.json', 'data/lezioni_sul_Don_Chisciotte.json', 'data/icone_della_legge.json', 'data/pensare_senza_parole.json']; // Es: aggiungi 'data/altro_libro.json'
+        const jsonFiles = ['data/a_occhi_aperti.json', 
+                           'data/lezioni_sul_Don_Chisciotte.json', 
+                           'data/icone_della_legge.json', 
+                           'data/pensare_senza_parole.json',
+                           'data/dioniso.json',
+                           'data/a_cosa_serve_la_letteratura',
+                        ]; // Es: aggiungi 'data/altro_libro.json'
            
         // Funzione per mergiare dati da più JSON
         async function loadAndMergeData(files) {
