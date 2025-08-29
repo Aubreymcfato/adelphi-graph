@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Literary Citation Graph</title>
+    <title>Adelphi Citation Graph</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; display: flex; }
@@ -17,7 +17,7 @@
 <body>
     <svg id="graph"></svg>
     <div id="sidebar">
-        <h2>Dettagli Citazione</h2>
+        <h2>Dettagli</h2>
         <p>Clicca su un nodo per vedere le citazioni (da più libri se presenti).</p>
     </div>
     <script>
@@ -30,7 +30,7 @@
             .attr("viewBox", [-width / 2, -height / 2, width, height]);
 
         // Lista dei JSON da caricare (aggiungi qui nuovi file per nuovi libri)
-        const jsonFiles = ['data/a_occhi_aperti.json', 'data/lezioni_sul_Don_Chisciotte.json']; // Es: aggiungi 'data/altro_libro.json'
+        const jsonFiles = ['data/a_occhi_aperti.json', 'data/lezioni_sul_Don_Chisciotte.json', 'data/icone_della_legge.json']; // Es: aggiungi 'data/altro_libro.json'
            
         // Funzione per mergiare dati da più JSON
         async function loadAndMergeData(files) {
